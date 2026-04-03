@@ -1,0 +1,395 @@
+
+mysql> create database mydb;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use mydb;
+Database changed
+mysql> create table employee(id int, name varchar(50), age int, salary int,nationality varchar(50));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> insert into employee values(1,'A',20, 20000,'indian');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into employee values(2,'B',25, 30000,'indian');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values(3,'C',22, 30400,'US');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values(4,'D',26, 40000,'US');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values(5,'E',23, 120000,'indian');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++------+------+------+--------+-------------+
+| id   | name | age  | salary | nationality |
++------+------+------+--------+-------------+
+|    1 | A    |   20 |  20000 | indian      |
+|    2 | B    |   25 |  30000 | indian      |
+|    3 | C    |   22 |  30400 | US          |
+|    4 | D    |   26 |  40000 | US          |
+|    5 | E    |   23 | 120000 | indian      |
++------+------+------+--------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select name, salary from employee;
++------+--------+
+| name | salary |
++------+--------+
+| A    |  20000 |
+| B    |  30000 |
+| C    |  30400 |
+| D    |  40000 |
+| E    | 120000 |
++------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employee where id=2;
++------+------+------+--------+-------------+
+| id   | name | age  | salary | nationality |
++------+------+------+--------+-------------+
+|    2 | B    |   25 |  30000 | indian      |
++------+------+------+--------+-------------+
+1 row in set (0.01 sec)
+
+mysql> select * from employee where id>=4;
++------+------+------+--------+-------------+
+| id   | name | age  | salary | nationality |
++------+------+------+--------+-------------+
+|    4 | D    |   26 |  40000 | US          |
+|    5 | E    |   23 | 120000 | indian      |
++------+------+------+--------+-------------+
+2 rows in set (0.01 sec)
+
+mysql> select * from employee where id=2 and salary=50000;
+Empty set (0.00 sec)
+
+mysql> select * from employee where id=2 and salary=40000;
+Empty set (0.00 sec)
+
+mysql> select * from employee where id=2 and salary=30000;
++------+------+------+--------+-------------+
+| id   | name | age  | salary | nationality |
++------+------+------+--------+-------------+
+|    2 | B    |   25 |  30000 | indian      |
++------+------+------+--------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where name='C' or salary=30400;
++------+------+------+--------+-------------+
+| id   | name | age  | salary | nationality |
++------+------+------+--------+-------------+
+|    3 | C    |   22 |  30400 | US          |
++------+------+------+--------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where age=25 or salary=50000;
++------+------+------+--------+-------------+
+| id   | name | age  | salary | nationality |
++------+------+------+--------+-------------+
+|    2 | B    |   25 |  30000 | indian      |
++------+------+------+--------+-------------+
+1 row in set (0.01 sec)
+
+mysql> select* from employee where name='D' and age=24;
+Empty set (0.00 sec)
+
+mysql> select* from employee where name='D' and age=26;
++------+------+------+--------+-------------+
+| id   | name | age  | salary | nationality |
++------+------+------+--------+-------------+
+|    4 | D    |   26 |  40000 | US          |
++------+------+------+--------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where id!=3;
++------+------+------+--------+-------------+
+| id   | name | age  | salary | nationality |
++------+------+------+--------+-------------+
+|    1 | A    |   20 |  20000 | indian      |
+|    2 | B    |   25 |  30000 | indian      |
+|    4 | D    |   26 |  40000 | US          |
+|    5 | E    |   23 | 120000 | indian      |
++------+------+------+--------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee where salary IN (20000, 30000, 120000);
++------+------+------+--------+-------------+
+| id   | name | age  | salary | nationality |
++------+------+------+--------+-------------+
+|    1 | A    |   20 |  20000 | indian      |
+|    2 | B    |   25 |  30000 | indian      |
+|    5 | E    |   23 | 120000 | indian      |
++------+------+------+--------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select 8 from employee where salary between 10000 and 50000;
++---+
+| 8 |
++---+
+| 8 |
+| 8 |
+| 8 |
+| 8 |
++---+
+4 rows in set (0.01 sec)
+
+mysql> select * from employee where salary between 10000 and 50000;
++------+------+------+--------+-------------+
+| id   | name | age  | salary | nationality |
++------+------+------+--------+-------------+
+|    1 | A    |   20 |  20000 | indian      |
+|    2 | B    |   25 |  30000 | indian      |
+|    3 | C    |   22 |  30400 | US          |
+|    4 | D    |   26 |  40000 | US          |
++------+------+------+--------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee where salary between 30000 and 120000;
++------+------+------+--------+-------------+
+| id   | name | age  | salary | nationality |
++------+------+------+--------+-------------+
+|    2 | B    |   25 |  30000 | indian      |
+|    3 | C    |   22 |  30400 | US          |
+|    4 | D    |   26 |  40000 | US          |
+|    5 | E    |   23 | 120000 | indian      |
++------+------+------+--------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> update employee salary=30000 where id=2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=30000 where id=2' at line 1
+mysql> update employee set salary=30000 where id=2;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> update employee set salary=10000 where id=2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++------+------+------+--------+-------------+
+| id   | name | age  | salary | nationality |
++------+------+------+--------+-------------+
+|    1 | A    |   20 |  20000 | indian      |
+|    2 | B    |   25 |  10000 | indian      |
+|    3 | C    |   22 |  30400 | US          |
+|    4 | D    |   26 |  40000 | US          |
+|    5 | E    |   23 | 120000 | indian      |
++------+------+------+--------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> delete fom employee where id=4;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employee where id=4' at line 1
+mysql> delete from employee where id=4;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select 8 from employee;
++---+
+| 8 |
++---+
+| 8 |
+| 8 |
+| 8 |
+| 8 |
++---+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee;
++------+------+------+--------+-------------+
+| id   | name | age  | salary | nationality |
++------+------+------+--------+-------------+
+|    1 | A    |   20 |  20000 | indian      |
+|    2 | B    |   25 |  10000 | indian      |
+|    3 | C    |   22 |  30400 | US          |
+|    5 | E    |   23 | 120000 | indian      |
++------+------+------+--------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select count(*) from employee;
++----------+
+| count(*) |
++----------+
+|        4 |
++----------+
+1 row in set (0.02 sec)
+
+mysql> select max(salary) from employee;
++-------------+
+| max(salary) |
++-------------+
+|      120000 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> select max(age) from employee;
++----------+
+| max(age) |
++----------+
+|       25 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where nationality='indian';
++------+------+------+--------+-------------+
+| id   | name | age  | salary | nationality |
++------+------+------+--------+-------------+
+|    1 | A    |   20 |  20000 | indian      |
+|    2 | B    |   25 |  10000 | indian      |
+|    5 | E    |   23 | 120000 | indian      |
++------+------+------+--------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select min(age) from employee;
++----------+
+| min(age) |
++----------+
+|       20 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select min(salary) from employee;
++-------------+
+| min(salary) |
++-------------+
+|       10000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) from employee;
++-------------+
+| sum(salary) |
++-------------+
+|      180400 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(age) from employee;
++----------+
+| sum(age) |
++----------+
+|       90 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salary) from employee;
++-------------+
+| avg(salary) |
++-------------+
+|  45100.0000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(age) from employee;
++----------+
+| avg(age) |
++----------+
+|  22.5000 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select salary, count(salary) from employee group by salary;
++--------+---------------+
+| salary | count(salary) |
++--------+---------------+
+|  20000 |             1 |
+|  10000 |             1 |
+|  30400 |             1 |
+| 120000 |             1 |
++--------+---------------+
+4 rows in set (0.01 sec)
+
+mysql> select salary, count(salary) from employee group by salary having count(salary)>1;
+Empty set (0.01 sec)
+
+mysql> update employee set salary=20000 where id=3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set salary=10000 where id=5;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from employee;
++------+------+------+--------+-------------+
+| id   | name | age  | salary | nationality |
++------+------+------+--------+-------------+
+|    1 | A    |   20 |  20000 | indian      |
+|    2 | B    |   25 |  10000 | indian      |
+|    3 | C    |   22 |  20000 | US          |
+|    5 | E    |   23 |  10000 | indian      |
++------+------+------+--------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select count(*) from employee;
++----------+
+| count(*) |
++----------+
+|        4 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) from employee;
++-------------+
+| max(salary) |
++-------------+
+|       20000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select min(salary) from employee;
++-------------+
+| min(salary) |
++-------------+
+|       10000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salary) from employee;
++-------------+
+| avg(salary) |
++-------------+
+|  15000.0000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select salary, count(salary) from employee group by salary;
++--------+---------------+
+| salary | count(salary) |
++--------+---------------+
+|  20000 |             2 |
+|  10000 |             2 |
++--------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> select salary, count(salary) from employee group by salary having count(salary)>1;
++--------+---------------+
+| salary | count(salary) |
++--------+---------------+
+|  20000 |             2 |
+|  10000 |             2 |
++--------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> select 8 from employee order by salary desc;
++---+
+| 8 |
++---+
+| 8 |
+| 8 |
+| 8 |
+| 8 |
++---+
+4 rows in set (0.01 sec)
+
+mysql> select * from employee order by salary desc;
++------+------+------+--------+-------------+
+| id   | name | age  | salary | nationality |
++------+------+------+--------+-------------+
+|    1 | A    |   20 |  20000 | indian      |
+|    3 | C    |   22 |  20000 | US          |
+|    2 | B    |   25 |  10000 | indian      |
+|    5 | E    |   23 |  10000 | indian      |
++------+------+------+--------+-------------+
+4 rows in set (0.00 sec)
